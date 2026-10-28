@@ -1,0 +1,17 @@
+{
+  "name": "manassa",
+  "version": "1.0.0",
+  "description": "منصة إدارة الأعمال",
+  "main": "main.js",
+  "author": "Manassa",
+  "scripts": { "start": "electron .", "build:win": "electron-builder --win" },
+  "dependencies": { "@capacitor/android": "^6.1.0", "@capacitor/cli": "^6.1.0", "@capacitor/core": "^6.1.0" },
+  "devDependencies": { "electron": "^31.0.0", "electron-builder": "^24.13.3" },
+  "build": {
+    "appId": "com.manassa.app",
+    "productName": "Manassa",
+    "files": ["main.js", "www/**"],
+    "win": { "target": ["nsis", "portable"] },
+    "directories": { "output": "dist" }
+  }
+}
