@@ -1,6 +1,6 @@
 {
   "name": "manassa",
-  "version": "4.0.0",
+  "version": "4.3.0",
   "description": "\u0645\u0646\u0635\u0629 \u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0623\u0639\u0645\u0627\u0644",
   "main": "main.js",
   "author": "Manassa",
@@ -28,7 +28,8 @@
       "target": [
         "nsis",
         "portable"
-      ]
+      ],
+      "icon": "www/icon-512.png"
     },
     "directories": {
       "output": "dist"
@@ -37,7 +38,8 @@
       "target": [
         "dmg"
       ],
-      "category": "public.app-category.business"
+      "category": "public.app-category.business",
+      "icon": "www/icon-512.png"
     }
   }
 }

@@ -1,8 +1,12 @@
-name: Build EXE and APK
+name: Build all platforms
 on:
   push:
     branches: [main, master]
   workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 jobs:
   windows-exe:
     runs-on: windows-latest
@@ -11,12 +15,21 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 20 }
       - run: npm install
-      - run: npx electron-builder --win
+      - run: npx electron-builder --win --publish never
         env: { CSC_IDENTITY_AUTO_DISCOVERY: "false" }
       - uses: actions/upload-artifact@v4
-        with:
-          name: Manassa-Windows-EXE
-          path: dist/*.exe
+        with: { name: Manassa-Windows-EXE, path: "dist/*.exe" }
+  mac-dmg:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm install
+      - run: npx electron-builder --mac --publish never
+        env: { CSC_IDENTITY_AUTO_DISCOVERY: "false" }
+      - uses: actions/upload-artifact@v4
+        with: { name: Manassa-Mac-DMG, path: "dist/*.dmg" }
   android-apk:
     runs-on: ubuntu-latest
     steps:
@@ -27,10 +40,20 @@ jobs:
         with: { distribution: temurin, java-version: 17 }
       - run: npm install
       - run: npx cap add android
+      - run: npx --yes @capacitor/assets generate --android
+        continue-on-error: true
       - run: npx cap sync android
       - run: chmod +x gradlew && ./gradlew assembleDebug
         working-directory: android
       - uses: actions/upload-artifact@v4
-        with:
-          name: Manassa-Android-APK
-          path: android/app/build/outputs/apk/debug/*.apk
+        with: { name: Manassa-Android-APK, path: "android/app/build/outputs/apk/debug/*.apk" }
+  web-pwa:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    environment: { name: github-pages }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: www }
+      - uses: actions/deploy-pages@v4
