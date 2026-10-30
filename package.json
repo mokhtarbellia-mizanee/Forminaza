@@ -1,17 +1,43 @@
 {
   "name": "manassa",
-  "version": "1.0.0",
-  "description": "منصة إدارة الأعمال",
+  "version": "4.0.0",
+  "description": "\u0645\u0646\u0635\u0629 \u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0623\u0639\u0645\u0627\u0644",
   "main": "main.js",
   "author": "Manassa",
-  "scripts": { "start": "electron .", "build:win": "electron-builder --win" },
-  "dependencies": { "@capacitor/android": "^6.1.0", "@capacitor/cli": "^6.1.0", "@capacitor/core": "^6.1.0" },
-  "devDependencies": { "electron": "^31.0.0", "electron-builder": "^24.13.3" },
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.0",
+    "@capacitor/cli": "^6.1.0",
+    "@capacitor/core": "^6.1.0"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
   "build": {
     "appId": "com.manassa.app",
     "productName": "Manassa",
-    "files": ["main.js", "www/**"],
-    "win": { "target": ["nsis", "portable"] },
-    "directories": { "output": "dist" }
+    "files": [
+      "main.js",
+      "www/**"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.business"
+    }
   }
 }
